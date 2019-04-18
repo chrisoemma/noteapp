@@ -21,6 +21,17 @@ class NotesController extends Controller
            return $response;
          }
 
+         $note=new Note;
+         $note->name=$request->name;
+          $note->save();
+
+            $response=[
+          	  'code'=>200,
+          	'success'=>true,
+          	'data'=>$note
+          ];
+          return response($response);
+
       }
 
     public function allnotes(){
