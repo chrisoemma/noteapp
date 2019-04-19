@@ -69,5 +69,10 @@ class NotesController extends Controller
            
       }
 
+      public function softdelete($id){
+         
+             
+      }
+
 
 }
