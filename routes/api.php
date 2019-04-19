@@ -11,13 +11,14 @@ use Illuminate\Http\Request;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+ */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/v1/notes','NotesController@create');
-Route::get('/v1/notes','NotesController@allnotes');
-Route::delete('v1/notes/{id}','NotesController@permanentDelete');
-Route::delete('v2/notes/{id}','NotesController@softdelete');
+Route::post('/v1/notes', 'NotesController@create');
+Route::get('/v1/notes', 'NotesController@allnotes');
+Route::delete('v1/notes/{id}', 'NotesController@permanentDelete'); //this on first permanent delete models
+Route::delete('v2/notes/{id}', 'NotesController@softdelete');
+Route::get('v2/notes/withsoftdelete','NotesController@notesWithSoftDelete');
