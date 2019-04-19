@@ -94,8 +94,19 @@ class NotesController extends Controller
         return response($response);
     }
 
-    public function notesWithSoftDelete(){
+    public function notesWithSoftDelete()
+    {
 
-        }
+        $notes = Note::withTrashed()->get();
+
+        $response = [
+            'code' => 200,
+            'success' => true,
+            'count' => $notes->count(),
+            'data' => $notes,
+        ];
+        return response($response);
+
+    }
 
 }
