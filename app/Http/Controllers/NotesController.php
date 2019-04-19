@@ -109,8 +109,18 @@ class NotesController extends Controller
 
     }
 
-    public function softdeleted(){
-        
+    public function softdeleted()
+    {
+
+        $notes = Note::onlyTrashed()->get();
+
+        $response = [
+            'code' => 200,
+            'success' => true,
+            'count' => $notes->count(),
+            'data' => $notes,
+        ];
+        return response($response);
     }
 
 }
