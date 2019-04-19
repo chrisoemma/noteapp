@@ -22,3 +22,4 @@ Route::get('/v1/notes', 'NotesController@allnotes');
 Route::delete('v1/notes/{id}', 'NotesController@permanentDelete'); //this on first permanent delete models
 Route::delete('v2/notes/{id}', 'NotesController@softdelete');
 Route::get('v2/notes/withsoftdelete','NotesController@notesWithSoftDelete');
+Route::get('v2/notes/softdeleted','NotesController@softdeleted');

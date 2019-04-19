@@ -109,4 +109,8 @@ class NotesController extends Controller
 
     }
 
+    public function softdeleted(){
+        
+    }
+
 }
