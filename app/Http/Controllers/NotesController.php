@@ -26,7 +26,8 @@ class NotesController extends Controller
           $note->save();
 
             $response=[
-          	  'code'=>200,
+          	  'code'=>201,
+          	  'message'=>'Succesfuly created'
           	'success'=>true,
           	'data'=>$note
           ];
@@ -40,7 +41,7 @@ class NotesController extends Controller
 
           $response=[
           	  'code'=>200,
-          	'success'=>true,
+          	 'success'=>true,
           	 'count'=>$notes->count(),
           	'data'=>$notes
           ];
