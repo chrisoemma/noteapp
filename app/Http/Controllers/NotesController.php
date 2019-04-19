@@ -47,5 +47,26 @@ class NotesController extends Controller
     	 return response($response);
     }
 
+    public function permanentDelete($id){
+
+          $note= Note::destroy($id);
+            if($note){
+            $response=[
+          	  'code'=>200,
+          	  'message'=>'Succesfuly deleted',
+          	'success'=>true,
+          ];
+          }else{
+                 $response=[
+          	  'code'=>404,
+          	  'message'=>'Note not found',
+          	'success'=>false,
+          ]; 
+  
+          }
+           return response($response);
+           
+      }
+
 
 }
