@@ -146,4 +146,27 @@ class NotesController extends Controller
         return response($response);
     }
 
+    public function permanentDeleteSoftDeleted($id)
+    {
+        $note = Note::onlyTrashed()->find($id);
+
+        if (!is_null($note)) {
+            $note->forceDelete();
+            $response = [
+                'code' => 200,
+                'message' => 'Succesfuly deleted',
+                'success' => true,
+                'data' => $note,
+            ];
+        } else {
+
+            $response = [
+                'code' => 404,
+                'message' => 'Note not found',
+                'success' => false,
+            ];
+        }
+        return response($response);
+    }
+
 }
