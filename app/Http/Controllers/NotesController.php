@@ -26,7 +26,7 @@ class NotesController extends Controller
         $note = new Note;
         $note->name = $request->name;
         $note->save();
-        $response = $this->successfulMeassage(2001, 'Successfully created', true, $note->count(), $note);
+        $response = $this->successfulMessage(201, 'Successfully created', true, $note->count(), $note);
         return response($response);
 
     }
@@ -35,7 +35,7 @@ class NotesController extends Controller
     {
 
         $notes = Note::all();
-        $response = $this->successfulMeassage(200, 'Successfully', true, $notes->count(), $notes);
+        $response = $this->successfulMessage(200, 'Successfully', true, $notes->count(), $notes);
 
         return response($response);
     }
@@ -48,7 +48,7 @@ class NotesController extends Controller
         $note = Note::destroy($id);
         if ($note) {
 
-            $response = $this->successfulMeassage(200, 'Successfully deleted', true, 0, $note);
+            $response = $this->successfulMessage(200, 'Successfully deleted', true, 0, $note);
 
         } else {
 
@@ -63,7 +63,7 @@ class NotesController extends Controller
 
         $note = Note::destroy($id);
         if ($note) {
-            $response = $this->successfulMeassage(200, 'Successfully deleted', true,0, $note);
+            $response = $this->successfulMessage(200, 'Successfully deleted', true,0, $note);
         } else {
 
             $response = $this->notFoundMessage();
@@ -76,7 +76,7 @@ class NotesController extends Controller
     {
 
         $notes = Note::withTrashed()->get();
-        $response = $this->successfulMeassage(200, 'Successfully', true, $notes->count(), $notes);
+        $response = $this->successfulMessage(200, 'Successfully', true, $notes->count(), $notes);
         return response($response);
 
     }
@@ -85,7 +85,7 @@ class NotesController extends Controller
     {
         $notes = Note::onlyTrashed()->get();
 
-        $response = $this->successfulMeassage(200, 'Successfully', true, $notes->count(), $notes);
+        $response = $this->successfulMessage(200, 'Successfully', true, $notes->count(), $notes);
         return response($response);
     }
 
@@ -97,7 +97,7 @@ class NotesController extends Controller
         if (!is_null($note)) {
 
             $note->restore();
-            $response = $this->successfulMeassage(200, 'Successfully restored', true, $note->count(), $note);
+            $response = $this->successfulMessage(200, 'Successfully restored', true, $note->count(), $note);
         } else {
 
             return response($response);
@@ -112,7 +112,7 @@ class NotesController extends Controller
         if (!is_null($note)) {
 
             $note->forceDelete();
-            $response = $this->successfulMeassage(200, 'Successfully deleted', true, 0, $note);
+            $response = $this->successfulMessage(200, 'Successfully deleted', true, 0, $note);
         } else {
 
             return response($response);
@@ -131,7 +131,7 @@ class NotesController extends Controller
 
     }
 
-    private function successfulMeassage($code, $message, $status, $count, $payload)
+    private function successfulMessage($code, $message, $status, $count, $payload)
     {
 
         return [
