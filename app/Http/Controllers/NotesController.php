@@ -35,7 +35,7 @@ class NotesController extends Controller
         return response($response);
 
     }
-
+    //return those which are not deleted
     public function allnotes()
     {
 
@@ -93,7 +93,7 @@ class NotesController extends Controller
         }
         return response($response);
     }
-
+    //returns both non-deleted and softdeleted
     public function notesWithSoftDelete()
     {
 
@@ -111,7 +111,6 @@ class NotesController extends Controller
 
     public function softdeleted()
     {
-
         $notes = Note::onlyTrashed()->get();
 
         $response = [
@@ -120,6 +119,30 @@ class NotesController extends Controller
             'count' => $notes->count(),
             'data' => $notes,
         ];
+        return response($response);
+    }
+
+    public function restore($id)
+    {
+
+        $note = Note::onlyTrashed()->find($id);
+
+        if (!is_null($note)) {
+            $note->restore();
+            $response = [
+                'code' => 200,
+                'message' => 'Succesfuly restored',
+                'success' => true,
+                'data' => $note,
+            ];
+        } else {
+
+            $response = [
+                'code' => 404,
+                'message' => 'Note not found',
+                'success' => false,
+            ];
+        }
         return response($response);
     }
 
