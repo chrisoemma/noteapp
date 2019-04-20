@@ -8,7 +8,8 @@ use Validator;
 
 class NotesController extends Controller
 {
-    //
+
+    //create new article
     public function create(Request $request)
     {
 
@@ -25,13 +26,7 @@ class NotesController extends Controller
         $note = new Note;
         $note->name = $request->name;
         $note->save();
-
-        $response = [
-            'code' => 201,
-            'message' => 'Succesfuly created',
-            'success' => true,
-            'data' => $note,
-        ];
+        $response = $this->successfulMeassage(2001, 'Successfully created', true, $note->count(), $note);
         return response($response);
 
     }
@@ -40,13 +35,8 @@ class NotesController extends Controller
     {
 
         $notes = Note::all();
+        $response = $this->successfulMeassage(200, 'Successfully', true, $notes->count(), $notes);
 
-        $response = [
-            'code' => 200,
-            'success' => true,
-            'count' => $notes->count(),
-            'data' => $notes,
-        ];
         return response($response);
     }
 
@@ -57,19 +47,14 @@ class NotesController extends Controller
 
         $note = Note::destroy($id);
         if ($note) {
-            $response = [
-                'code' => 200,
-                'message' => 'Succesfuly deleted',
-                'success' => true,
-            ];
-        } else {
-            $response = [
-                'code' => 404,
-                'message' => 'Note not found',
-                'success' => false,
-            ];
 
+            $response = $this->successfulMeassage(200, 'Successfully deleted', true, 0, $note);
+
+        } else {
+
+            $response = $this->notFoundMessage();
         }
+
         return response($response);
     }
 
@@ -78,17 +63,10 @@ class NotesController extends Controller
 
         $note = Note::destroy($id);
         if ($note) {
-            $response = [
-                'code' => 200,
-                'message' => 'Succesfuly deleted',
-                'success' => true,
-            ];
+            $response = $this->successfulMeassage(200, 'Successfully deleted', true,0, $note);
         } else {
-            $response = [
-                'code' => 404,
-                'message' => 'Note not found',
-                'success' => false,
-            ];
+
+            $response = $this->notFoundMessage();
 
         }
         return response($response);
@@ -98,13 +76,7 @@ class NotesController extends Controller
     {
 
         $notes = Note::withTrashed()->get();
-
-        $response = [
-            'code' => 200,
-            'success' => true,
-            'count' => $notes->count(),
-            'data' => $notes,
-        ];
+        $response = $this->successfulMeassage(200, 'Successfully', true, $notes->count(), $notes);
         return response($response);
 
     }
@@ -113,12 +85,7 @@ class NotesController extends Controller
     {
         $notes = Note::onlyTrashed()->get();
 
-        $response = [
-            'code' => 200,
-            'success' => true,
-            'count' => $notes->count(),
-            'data' => $notes,
-        ];
+        $response = $this->successfulMeassage(200, 'Successfully', true, $notes->count(), $notes);
         return response($response);
     }
 
@@ -128,20 +95,12 @@ class NotesController extends Controller
         $note = Note::onlyTrashed()->find($id);
 
         if (!is_null($note)) {
+
             $note->restore();
-            $response = [
-                'code' => 200,
-                'message' => 'Succesfuly restored',
-                'success' => true,
-                'data' => $note,
-            ];
+            $response = $this->successfulMeassage(200, 'Successfully restored', true, $note->count(), $note);
         } else {
 
-            $response = [
-                'code' => 404,
-                'message' => 'Note not found',
-                'success' => false,
-            ];
+            return response($response);
         }
         return response($response);
     }
@@ -151,22 +110,38 @@ class NotesController extends Controller
         $note = Note::onlyTrashed()->find($id);
 
         if (!is_null($note)) {
+
             $note->forceDelete();
-            $response = [
-                'code' => 200,
-                'message' => 'Succesfuly deleted',
-                'success' => true,
-                'data' => $note,
-            ];
+            $response = $this->successfulMeassage(200, 'Successfully deleted', true, 0, $note);
         } else {
 
-            $response = [
-                'code' => 404,
-                'message' => 'Note not found',
-                'success' => false,
-            ];
+            return response($response);
         }
         return response($response);
+    }
+
+    private function notFoundMessage()
+    {
+
+        return [
+            'code' => 404,
+            'message' => 'Note not found',
+            'success' => false,
+        ];
+
+    }
+
+    private function successfulMeassage($code, $message, $status, $count, $payload)
+    {
+
+        return [
+            'code' => $code,
+            'message' => $message,
+            'success' => $status,
+            'count' => $count,
+            'data' => $payload,
+        ];
+
     }
 
 }
