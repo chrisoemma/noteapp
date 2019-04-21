@@ -31,7 +31,7 @@ class NotesController extends Controller
 
     }
     //return those which are not deleted
-    public function allnotes()
+    public function allNotes()
     {
 
         $notes = Note::all();
@@ -58,7 +58,7 @@ class NotesController extends Controller
         return response($response);
     }
 
-    public function softdelete($id)
+    public function softDelete($id)
     {
 
         $note = Note::destroy($id);
@@ -81,7 +81,7 @@ class NotesController extends Controller
 
     }
 
-    public function softdeleted()
+    public function softDeleted()
     {
         $notes = Note::onlyTrashed()->get();
 
@@ -131,7 +131,7 @@ class NotesController extends Controller
 
     }
 
-    private function successfulMessage($code, $message, $status, $count, $payload)
+    private function successulMessage($code, $message, $status, $count, $payload)
     {
 
         return [

@@ -1,10 +1,10 @@
 <?php
 
 Route::post('/v1/notes', 'NotesController@create');
-Route::get('/v1/notes', 'NotesController@allnotes');
+Route::get('/v1/notes', 'NotesController@allNotes');
 Route::delete('v1/notes/{id}', 'NotesController@permanentDelete'); //this on first permanent delete models
-Route::delete('v2/notes/{id}', 'NotesController@softdelete');
+Route::delete('v2/notes/{id}', 'NotesController@softDelete');
 Route::get('v2/notes/withsoftdelete','NotesController@notesWithSoftDelete');
-Route::get('v2/notes/softdeleted','NotesController@softdeleted');
+Route::get('v2/notes/softdeleted','NotesController@sofDeleted');
 Route::patch('/v1/notes/{id}','NotesController@restore');
 Route::patch('v2/notes/{id}','NotesController@permanentDeleteSoftDeleted');
