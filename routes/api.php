@@ -7,4 +7,4 @@ Route::delete('v2/notes/{id}', 'NotesController@softDelete');
 Route::get('v2/notes/withsoftdelete','NotesController@notesWithSoftDelete');
 Route::get('v2/notes/softdeleted','NotesController@softDeleted');
 Route::patch('/v1/notes/{id}','NotesController@restore');
-Route::patch('v2/notes/{id}','NotesController@permanentDeleteSoftDeleted');
+Route::delete('v3/notes/{id}','NotesController@permanentDeleteSoftDeleted');
